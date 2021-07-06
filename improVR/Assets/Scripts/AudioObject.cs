@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class AudioObject : MonoBehaviour
 {
-    private AudioSource audioSource;
-    private bool mute;
+    public AudioSource audioSource;
+    public bool mute;
  
     // Start is called before the first frame update
     void Start()
@@ -31,8 +31,7 @@ public class AudioObject : MonoBehaviour
         }
     }
     private void OnCollisionEnter(Collision collision)
-    {
-        
+    {     
         if (collision.transform.tag == "hand")
         {
             GameObject small_clone = Instantiate(gameObject, collision.transform.position, gameObject.transform.rotation);
