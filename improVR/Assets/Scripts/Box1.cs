@@ -15,7 +15,7 @@ public class Box1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.audioSource = this.GetComponent<AudioSource>();
+        this.audioSource = GetComponent<AudioSource>();
         this.position = this.gameObject.transform.position;
         this.pitch = this.position.y;
         this.audioSource.volume = 0.5f;
@@ -45,7 +45,7 @@ public class Box1 : MonoBehaviour
         {
             this.audioSource.Play();
         }
-        else
+        else if (collision.gameObject.tag == "hand")
         {
             this.checkProperties();
         }

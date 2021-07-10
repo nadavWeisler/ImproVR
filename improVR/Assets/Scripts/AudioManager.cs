@@ -6,73 +6,98 @@ public class AudioManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject musicBox1;
+    
     [SerializeField]
     private GameObject musicBox2;
+    
     [SerializeField]
     private GameObject musicBox3;
+    
     [SerializeField]
     private GameObject musicBox4;
+    
     [SerializeField]
     private GameObject musicBox5;
+    
     [SerializeField]
     private GameObject musicBox6;
+    
     [SerializeField]
     private GameObject musicBox7;
+    
     [SerializeField]
     private GameObject musicBox8;
+    
     [SerializeField]
     private GameObject musicBox9;
+    
     [SerializeField]
     private GameObject musicBox10;
+    
     [SerializeField]
     private GameObject musicBox11;
+    
     [SerializeField]
     private GameObject musicBox12;
-
+    
     [SerializeField]
     private AudioClip bush;
+    
     [SerializeField]
     private AudioClip fire;
+    
     [SerializeField]
     private AudioClip firefly;
+    
     [SerializeField]
     private AudioClip flower;
+    
     [SerializeField]
     private AudioClip foxGreg;
+    
     [SerializeField]
     private AudioClip otterLarry;
+    
     [SerializeField]
     private AudioClip owl;
+    
     [SerializeField]
     private AudioClip frog;
+    
     [SerializeField]
     private AudioClip snake;
+    
     [SerializeField]
     private AudioClip stone1;
+    
     [SerializeField]
     private AudioClip stone2;
+    
     [SerializeField]
     private AudioClip stone3;
+    
     [SerializeField]
     private AudioClip tree1;
+    
     [SerializeField]
     private AudioClip tree2;
+    
     [SerializeField]
     private AudioClip tree3;
     private List<AudioSource> loop;
     private Dictionary<string, AudioClip> dict;
     private float speed;
     private bool isPlaying;
-
     [SerializeField]
     private GameObject needle;
     // Start is called before the first frame update
     void Start()
     {
+        this.loop = new List<AudioSource>();
         for (int i = 0; i < 12; i++)
         {
-            loop[i] = gameObject.AddComponent<AudioSource>();
-            createDic();
+            this.loop[i] = this.gameObject.AddComponent<AudioSource>();
+            this.createDic();
         }
         this.speed = 1f;
         this.isPlaying = false;
@@ -107,7 +132,7 @@ public class AudioManager : MonoBehaviour
         dict.Add("otterLarry", this.otterLarry);
         dict.Add("owl", this.owl);
         dict.Add("frog", this.frog);
-        dict.Add("snake", this.snake);
+        dict.Add("Snake", this.snake);
         dict.Add("stone1", this.stone1);
         dict.Add("stone2", this.stone2);
         dict.Add("stone3", this.stone3);
@@ -115,12 +140,10 @@ public class AudioManager : MonoBehaviour
         dict.Add("tree2", this.tree2);
         dict.Add("tree3", this.tree3);
     }
-
     public AudioClip getAudioClip(string name)
     {
         return dict[name];
     }
-
     private void muteEnvironment(bool mute)
     {
         GameObject[] inv = GameObject.FindGameObjectsWithTag("music");

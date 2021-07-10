@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 
 public class AudioObject : MonoBehaviour
@@ -34,9 +35,9 @@ public class AudioObject : MonoBehaviour
     {     
         if (collision.transform.tag == "hand")
         {
-            GameObject small_clone = Instantiate(gameObject, collision.transform.position, gameObject.transform.rotation);
+            GameObject small_clone = Instantiate(gameObject);
             Vector3 scale = small_clone.transform.localScale;
-            small_clone.transform.localScale = new Vector3(scale.x / 10f, scale.y / 10f, scale.z / 10f);
+            this.transform.localScale = new Vector3(scale.x / 10f, scale.y / 10f, scale.z / 10f);
             small_clone.name = gameObject.name;
             small_clone.tag = gameObject.tag;
         }

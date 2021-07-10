@@ -6,6 +6,15 @@ TagManager:
   tags:
   - button
   - hand
+  - lb_bird
+  - lb_groundTarget
+  - lb_perchTarget
+  - bottle
+  - feed1
+  - feed2
+  - tree
+  - trash
+  - music
   layers:
   - Default
   - TransparentFX
