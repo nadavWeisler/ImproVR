@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Trash : MonoBehaviour
 {
+    public EscapeRoomGame game;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +15,13 @@ public class Trash : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "tree") 
+        {
+            Destroy(other.gameObject);
+            game.plant = true;
+        }
     }
 }

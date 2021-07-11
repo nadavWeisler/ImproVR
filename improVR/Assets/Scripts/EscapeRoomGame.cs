@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EscapeRoomGame : MonoBehaviour
 {
-    private bool pet;
-    private bool plant;
+    public bool pet;
+    public bool plant;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,7 @@ public class EscapeRoomGame : MonoBehaviour
             var walls = FindObjectsOfType<Wall>();
             for (int i = 0; i < walls.Length; i++)
             {
-                Destroy(walls[i]);
+                Destroy(walls[i].gameObject);
             }
         }
     }

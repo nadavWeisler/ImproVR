@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class tree : MonoBehaviour
 {
+    public EscapeRoomGame game;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +17,14 @@ public class tree : MonoBehaviour
         // if(this.gameObject.transform.localPosition[1] > 1) {
         //     Destroy(this);
         // }
-    } 
+    }
 
-    private void OnCollisionEnter(Collision other) {
-        var audio = this.gameObject.GetComponent<AudioSource>();
-        audio.mute = false;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "bottle")
+        {
+            other.transform.localScale *= 3;
+            this.game.pet = true;
+        }
     }
 }

@@ -15,6 +15,7 @@ TagManager:
   - tree
   - trash
   - music
+  - needle
   layers:
   - Default
   - TransparentFX
