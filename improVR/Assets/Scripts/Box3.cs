@@ -11,7 +11,6 @@ public class Box3 : MonoBehaviour
     private float pitch;
     private Vector3 position;
     private float base_vol;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,16 +18,12 @@ public class Box3 : MonoBehaviour
         this.position = this.gameObject.transform.position;
         this.pitch = this.position.y;
         this.audioSource.volume = 0.5f;
-        
-
     }
-
     // Update is called once per frame
     void Update()
     {
 
     }
-
     public void setParant(AudioManager parant)
     {
         print("set parent");
@@ -37,11 +32,9 @@ public class Box3 : MonoBehaviour
             this.position.z, this.audio_manager.transform.position.z);
     }
 
-
-
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject.tag + " triger");
+        print(other.gameObject.tag + " trigger");
         if (other.gameObject.tag == "music")
         {
             print(other.gameObject.name);
@@ -59,7 +52,7 @@ public class Box3 : MonoBehaviour
         }
         else if (other.gameObject.tag == "needle")
         {
-            print("paly");
+            print("play");
             this.audioSource.Play();
         }
         else if (other.gameObject.tag == "hand")
@@ -97,7 +90,6 @@ public class Box3 : MonoBehaviour
             this.audioSource.volume = (distance + this.base_vol) / (2f * this.base_vol);
         }
     }
-
     private AudioSource GetAudioSource()
     {
         if (this.clip != null)

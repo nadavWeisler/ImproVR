@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Box5 : MonoBehaviour
 {
+
     private AudioSource audioSource;
     private AudioClip clip;
     private AudioManager audio_manager;
@@ -41,7 +42,7 @@ public class Box5 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject.tag + " triger");
+        print(other.gameObject.tag + " trigger");
         if (other.gameObject.tag == "music")
         {
             print(other.gameObject.name);
@@ -59,7 +60,7 @@ public class Box5 : MonoBehaviour
         }
         else if (other.gameObject.tag == "needle")
         {
-            print("paly");
+            print("play");
             this.audioSource.Play();
         }
         else if (other.gameObject.tag == "hand")

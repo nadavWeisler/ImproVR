@@ -11,7 +11,6 @@ public class Box8 : MonoBehaviour
     private float pitch;
     private Vector3 position;
     private float base_vol;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,16 +18,12 @@ public class Box8 : MonoBehaviour
         this.position = this.gameObject.transform.position;
         this.pitch = this.position.y;
         this.audioSource.volume = 0.5f;
-        
-
     }
-
     // Update is called once per frame
     void Update()
     {
 
     }
-
     public void setParant(AudioManager parant)
     {
         print("set parent");
@@ -36,12 +31,9 @@ public class Box8 : MonoBehaviour
         this.base_vol = this.distance(this.position.x, this.audio_manager.transform.position.x,
             this.position.z, this.audio_manager.transform.position.z);
     }
-
-
-
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject.tag + " triger");
+        print(other.gameObject.tag + " trigger");
         if (other.gameObject.tag == "music")
         {
             print(other.gameObject.name);
@@ -54,12 +46,10 @@ public class Box8 : MonoBehaviour
             rigidbody.isKinematic = true;
             other.isTrigger = true;
             other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z);
-
-
         }
         else if (other.gameObject.tag == "needle")
         {
-            print("paly");
+            print("play");
             this.audioSource.Play();
         }
         else if (other.gameObject.tag == "hand")
@@ -67,7 +57,6 @@ public class Box8 : MonoBehaviour
             this.checkProperties();
         }
     }
-
     private void checkProperties()
     {
         float new_y = this.transform.position.y;
@@ -97,7 +86,6 @@ public class Box8 : MonoBehaviour
             this.audioSource.volume = (distance + this.base_vol) / (2f * this.base_vol);
         }
     }
-
     private AudioSource GetAudioSource()
     {
         if (this.clip != null)
@@ -109,7 +97,6 @@ public class Box8 : MonoBehaviour
             return null;
         }
     }
-
     private float distance(float x_1, float y_1, float x_2, float y_2)
     {
         return (Mathf.Sqrt(Mathf.Pow((x_2 - x_1), 2) + Mathf.Pow((y_2 - y_1), 2)));
