@@ -15,12 +15,10 @@ public class Box1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.audioSource = GetComponent<AudioSource>();
-        this.position = this.gameObject.transform.position;
-        this.pitch = this.position.y;
-        this.audioSource.volume = 0.5f;
-        
-
+        this.audioSource = new AudioSource();
+        // this.position = this.gameObject.transform.position;
+        // this.pitch = this.position.y;
+        // this.audioSource.volume = 0.5f;
     }
 
     // Update is called once per frame
@@ -29,43 +27,27 @@ public class Box1 : MonoBehaviour
 
     }
 
-    public void setParant(AudioManager parant)
-    {
-        print("set parent");
-        this.audio_manager = parant;
-        this.base_vol = this.distance(this.position.x, this.audio_manager.transform.position.x,
-            this.position.z, this.audio_manager.transform.position.z);
-    }
-
-
-
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject.tag + " trigger");
         if (other.gameObject.tag == "music")
         {
-            print(other.gameObject.name);
             //this.clip = this.audio_manager.getAudioClip(other.gameObject.name);
             this.audioSource.clip = other.GetComponent<AudioSource>().clip;
-            print(this.audioSource.clip.name);
             other.GetComponent<AudioSource>().loop = false;
-            Rigidbody rigidbody =  other.transform.GetComponent<Rigidbody>();
-            rigidbody.useGravity = false;
-            rigidbody.isKinematic = true;
-            other.isTrigger = true;
+            // Rigidbody rigidbody =  other.transform.GetComponent<Rigidbody>();
+            // rigidbody.useGravity = false;
+            // rigidbody.isKinematic = true;
+            // other.isTrigger = true;
             other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z);
-
-
         }
         else if (other.gameObject.tag == "needle")
         {
-            print("play");
             this.audioSource.Play();
         }
-        else if (other.gameObject.tag == "hand")
-        {
-            this.checkProperties();
-        }
+        // else if (other.gameObject.tag == "hand")
+        // {
+        //      this.checkProperties();
+        // }
     }
 
     private void checkProperties()
