@@ -85,14 +85,26 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private AudioClip tree3;
     private List<AudioSource> loop;
+    private List<GameObject> boxes;
     private Dictionary<string, AudioClip> dict;
     private float speed;
     private bool isPlaying;
+    private bool isLooping;
+    private bool isStooped;
     [SerializeField]
     private GameObject needle;
+
+    [SerializeField]
+    private GameObject play_indiqator;
+    [SerializeField]
+    private GameObject loop_indiqator;
+    [SerializeField]
+    private GameObject stop_indiqator;
+
     // Start is called before the first frame update
     void Start()
     {
+        this.createBoxList();
         this.loop = new List<AudioSource>();
         this.createDic();
         for (int i = 0; i < 12; i++)
@@ -100,27 +112,48 @@ public class AudioManager : MonoBehaviour
             //this.loop[i] = this.gameObject.AddComponent<AudioSource>();
         }
         this.speed = 1f;
-        this.isPlaying = true;
+        
     }
     // Update is called once per frame
     void Update()
     {
+        //this three are indicators for play , stop and loop buttons
+        this.isPlaying = this.play_indiqator.activeSelf;
+        this.isLooping = this.loop_indiqator.activeSelf;
+        this.isStooped = this.stop_indiqator.activeSelf;
+
         if (this.isPlaying)
         {
             this.needle.transform.RotateAround(this.transform.position, new Vector3(0f, 1f, 0f), 30f * Time.deltaTime * this.speed);
+            this.muteEnvironment(true);
+        }
+        if (this.isStooped)
+        {
+            this.play_indiqator.SetActive(false);
+            this.loop_indiqator.SetActive(false);
+            this.muteEnvironment(false);
+            this.stop_indiqator.SetActive(false);
+        }
+        if (this.isLooping)
+        {
+            this.muteEnvironment(true);
+            this.recordLoop();
+            this.playLoop();
         }
     }
     private void playLoop()
     {
-        for (int i = 0; i < 12; i++)
+        foreach (AudioSource audio in this.loop)
         {
-            loop[i].Play();
-            while (loop[i].isPlaying)
+            audio.Play();
+            while (audio.isPlaying)
             {
                 continue;
             }
-            i++;
+            
         }
+        this.loop_indiqator.SetActive(false);
+        this.muteEnvironment(false);
     }
     private void createDic()
     {
@@ -151,6 +184,33 @@ public class AudioManager : MonoBehaviour
         for (int i = 0; i < inv.Length; i++)
         {
             inv[i].GetComponent<AudioObject>().muteObject(mute);
+        }
+    }
+
+    private void createBoxList()
+    {
+        this.boxes = new List<GameObject>();
+        this.boxes.Add(this.musicBox1);
+        this.boxes.Add(this.musicBox2);
+        this.boxes.Add(this.musicBox3);
+        this.boxes.Add(this.musicBox4);
+        this.boxes.Add(this.musicBox5);
+        this.boxes.Add(this.musicBox6);
+        this.boxes.Add(this.musicBox7);
+        this.boxes.Add(this.musicBox8);
+        this.boxes.Add(this.musicBox9);
+        this.boxes.Add(this.musicBox10);
+        this.boxes.Add(this.musicBox11);
+        this.boxes.Add(this.musicBox12);
+
+    }
+
+    private void recordLoop()
+    {
+        //for now we record all the boxes and dont delate old loops - this needs to be change later on.
+        foreach (GameObject box in this.boxes)
+        {
+            this.loop.Add(box.GetComponent<AudioSource>());
         }
     }
 }
