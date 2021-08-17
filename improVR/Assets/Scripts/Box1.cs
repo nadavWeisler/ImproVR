@@ -11,6 +11,7 @@ public class Box1 : MonoBehaviour
     private float pitch;
     private Vector3 position;
     private float base_vol;
+    public GameObject box;
 
     // Start is called before the first frame update
     void Start()
@@ -27,18 +28,16 @@ public class Box1 : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnCollisionEnter(Collision other) {
         if (other.gameObject.tag == "music")
         {
-            //this.clip = this.audio_manager.getAudioClip(other.gameObject.name);
-            this.audioSource.clip = other.GetComponent<AudioSource>().clip;
+            GameObject clone = Instantiate<GameObject>(other.transform.gameObject, new Vector3(22, 0, -30), Quaternion.identity);
+            Destroy(other.transform.gameObject);
+           // this.audioSource.clip = other.GetComponent<AudioSource>().clip;
             other.GetComponent<AudioSource>().loop = false;
-            // Rigidbody rigidbody =  other.transform.GetComponent<Rigidbody>();
-            // rigidbody.useGravity = false;
-            // rigidbody.isKinematic = true;
-            // other.isTrigger = true;
-            other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z);
+            other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 2f, this.transform.position.z);
+
+            //todo Create another instance 
         }
         else if (other.gameObject.tag == "needle")
         {
