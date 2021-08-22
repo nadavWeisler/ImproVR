@@ -5,39 +5,53 @@ using UnityEngine;
 
 public class Box1 : MonoBehaviour
 {
+    [SerializeField]
+    private Material hologram;
+
     private AudioSource audioSource;
     private AudioClip clip;
     private AudioManager audio_manager;
-    private float pitch;
     private Vector3 position;
     private float base_vol;
-    public GameObject box;
+    private GameObject music_object;
+    private float pitch;
+    private bool not_empty;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.audioSource = new AudioSource();
-        // this.position = this.gameObject.transform.position;
-        // this.pitch = this.position.y;
-        // this.audioSource.volume = 0.5f;
+        this.audioSource = GetComponent<AudioSource>();
+        this.not_empty = false;
+        this.music_object = null;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (!this.not_empty && this.music_object != null)
+        {
+            float rotation = 30f * Time.deltaTime * 1f;
+            this.music_object.transform.RotateAround(this.transform.position, new Vector3(0f, 1f, 0f), rotation);
+        }
     }
 
-    private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.tag == "music")
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.gameObject.tag == "music")
         {
-            GameObject clone = Instantiate<GameObject>(other.transform.gameObject, new Vector3(22, 0, -30), Quaternion.identity);
-            Destroy(other.transform.gameObject);
-           // this.audioSource.clip = other.GetComponent<AudioSource>().clip;
-            other.GetComponent<AudioSource>().loop = false;
-            other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 2f, this.transform.position.z);
-
-            //todo Create another instance 
+            this.music_object = other.transform.gameObject;
+            this.not_empty = true;
+            print(other.gameObject.name);
+            //this.clip = this.audio_manager.getAudioClip(other.gameObject.name);
+            this.audioSource.clip = other.transform.GetComponent<AudioSource>().clip;
+            print(this.audioSource.clip.name);
+            other.transform.GetComponent<AudioSource>().loop = false;
+            Rigidbody rigidbody = other.transform.GetComponent<Rigidbody>();
+            rigidbody.useGravity = false;
+            rigidbody.isKinematic = true;
+            other.isTrigger = true;
+            other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 2.5f, this.transform.position.z);
+            other.transform.GetComponent<Renderer>().material = hologram;
         }
         else if (other.gameObject.tag == "needle")
         {
