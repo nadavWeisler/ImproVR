@@ -13,9 +13,13 @@ TagManager:
   - feed1
   - feed2
   - tree
-  - trash
   - music
   - needle
+  - delete
+  - pitchUp
+  - pitchDown
+  - volUp
+  - volDown
   layers:
   - Default
   - TransparentFX

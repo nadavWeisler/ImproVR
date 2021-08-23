@@ -91,8 +91,13 @@ public class AudioManager : MonoBehaviour
     private bool isPlaying;
     private bool isLooping;
     private bool isStoped;
+
+    private Vector3 needlePos;
+
     [SerializeField]
     private GameObject needle;
+    [SerializeField]
+    private GameObject needleStart;
     [SerializeField]
     private GameObject box;
 
@@ -102,28 +107,25 @@ public class AudioManager : MonoBehaviour
         this.createBoxList();
         this.loop = new List<AudioSource>();
         this.createDic();
-        for (int i = 0; i < 12; i++)
-        {
-            //this.loop[i] = this.gameObject.AddComponent<AudioSource>();
-        }
         this.speed = 1f;
-        
+        this.isPlaying = true;
+        this.needlePos = this.needleStart.transform.position;
     }
     // Update is called once per frame
     void Update()
     {
         if (this.isPlaying)
         {
-            this.needle.transform.RotateAround(this.transform.position, new Vector3(0f, 1f, 0f), 30f * Time.deltaTime * this.speed);
-            this.muteEnvironment(true);
+            this.needle.transform.RotateAround(this.needlePos,
+                new Vector3(0f, 1f, 0f),
+                30f * Time.deltaTime * this.speed);
         }
         if (this.isStoped)
         {
-            this.muteEnvironment(false);
+            //nothing
         }
         if (this.isLooping)
         {
-            this.muteEnvironment(true);
             this.recordLoop();
             this.playLoop();
         }
@@ -195,13 +197,24 @@ public class AudioManager : MonoBehaviour
             this.loop.Add(box.GetComponent<AudioSource>());
         }
     }
-    public void play() {
-        this.box.SetActive(!this.box.activeSelf);
+    public void play()
+    {
         this.isStoped = false;
         this.isPlaying = true;
+        this.muteEnvironment(true);
     }
-    public void stop() {
+    public void stop()
+    {
         this.isPlaying = false;
         this.isStoped = true;
+        this.muteEnvironment(false);
+    }
+    private void TempoUp()
+    {
+        this.speed += 0.1f;
+    }
+    private void TempoDown()
+    {
+        this.speed -= 0.1f;
     }
 }
