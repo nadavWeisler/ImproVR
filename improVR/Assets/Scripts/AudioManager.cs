@@ -39,51 +39,6 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField]
     private GameObject musicBox12;
-
-    [SerializeField]
-    private AudioClip bush;
-
-    [SerializeField]
-    private AudioClip fire;
-
-    [SerializeField]
-    private AudioClip firefly;
-
-    [SerializeField]
-    private AudioClip flower;
-
-    [SerializeField]
-    private AudioClip foxGreg;
-
-    [SerializeField]
-    private AudioClip otterLarry;
-
-    [SerializeField]
-    private AudioClip owl;
-
-    [SerializeField]
-    private AudioClip frog;
-
-    [SerializeField]
-    private AudioClip snake;
-
-    [SerializeField]
-    private AudioClip stone1;
-
-    [SerializeField]
-    private AudioClip stone2;
-
-    [SerializeField]
-    private AudioClip stone3;
-
-    [SerializeField]
-    private AudioClip tree1;
-
-    [SerializeField]
-    private AudioClip tree2;
-
-    [SerializeField]
-    private AudioClip tree3;
     private List<AudioSource> loop;
     private List<GameObject> boxes;
     private Dictionary<string, AudioClip> dict;
@@ -106,7 +61,6 @@ public class AudioManager : MonoBehaviour
     {
         this.createBoxList();
         this.loop = new List<AudioSource>();
-        this.createDic();
         this.speed = 1f;
         this.isPlaying = true;
         this.needlePos = this.needleStart.transform.position;
@@ -141,29 +95,6 @@ public class AudioManager : MonoBehaviour
             }
         }
         this.muteEnvironment(false);
-    }
-    private void createDic()
-    {
-        this.dict = new Dictionary<string, AudioClip>();
-        dict.Add("bush", this.bush);
-        dict.Add("fire", this.fire);
-        dict.Add("firefly", this.firefly);
-        dict.Add("flower", this.flower);
-        dict.Add("foxGreg", this.foxGreg);
-        dict.Add("otterLarry", this.otterLarry);
-        dict.Add("owl", this.owl);
-        dict.Add("frog", this.frog);
-        dict.Add("Snake", this.snake);
-        dict.Add("stone1", this.stone1);
-        dict.Add("stone2", this.stone2);
-        dict.Add("stone3", this.stone3);
-        dict.Add("tree1", this.tree1);
-        dict.Add("tree2", this.tree2);
-        dict.Add("tree3", this.tree3);
-    }
-    public AudioClip getAudioClip(string name)
-    {
-        return dict[name];
     }
     private void muteEnvironment(bool mute)
     {
