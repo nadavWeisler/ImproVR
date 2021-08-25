@@ -39,6 +39,8 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField]
     private GameObject musicBox12;
+
+
     private List<AudioSource> loop;
     private List<GameObject> boxes;
     private Dictionary<string, AudioClip> dict;
@@ -56,12 +58,15 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private GameObject box;
 
+   
+
     // Start is called before the first frame update
     void Start()
     {
+        ;
         this.createBoxList();
         this.loop = new List<AudioSource>();
-        this.speed = 1f;
+        this.speed = 1.25f;
         this.isPlaying = true;
         this.needlePos = this.needleStart.transform.position;
     }
@@ -140,12 +145,9 @@ public class AudioManager : MonoBehaviour
         this.isStoped = true;
         this.muteEnvironment(false);
     }
-    private void TempoUp()
+    public void changeTempo()
     {
-        this.speed += 0.1f;
+        this.speed = 1.25f;
     }
-    private void TempoDown()
-    {
-        this.speed -= 0.1f;
-    }
+    
 }

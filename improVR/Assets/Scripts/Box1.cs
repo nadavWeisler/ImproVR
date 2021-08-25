@@ -6,7 +6,16 @@ using UnityEngine;
 public class Box1 : MonoBehaviour
 {
     [SerializeField]
-    private Material hologram;
+    private Material vol1;
+    [SerializeField]
+    private Material vol2;
+    [SerializeField]
+    private Material vol3;
+    [SerializeField]
+    private Material vol4;
+    [SerializeField]
+    private Material vol5;
+    private List<Material> volList;
     private AudioSource audioSource;
     private List<AudioSource> audioSourcesList;
     private AudioClip clip;
@@ -16,7 +25,7 @@ public class Box1 : MonoBehaviour
     private GameObject music_object;
     private List<GameObject> musicObjectList;
     private float pitch;
-    private float volume;
+    private int volume;
     private bool not_empty;
 
     // Start is called before the first frame update
@@ -25,6 +34,9 @@ public class Box1 : MonoBehaviour
         this.audioSourcesList = new List<AudioSource>();
         this.not_empty = false;
         this.musicObjectList = new List<GameObject>();
+        this.volList = new List<Material>();
+        this.createVolList();
+        this.volume = 2;
     }
 
     // Update is called once per frame
@@ -55,7 +67,7 @@ public class Box1 : MonoBehaviour
             rigidbody.isKinematic = true;
             other.isTrigger = true;
             other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 2.5f * this.audioSourcesList.Count, this.transform.position.z);
-            other.transform.GetComponent<Renderer>().material = hologram;
+            other.transform.GetComponent<Renderer>().material = vol1;
         }
         else if (other.transform.gameObject.tag == "needle")
         {
@@ -91,7 +103,7 @@ public class Box1 : MonoBehaviour
                  this.transform.localScale.y,
                  this.transform.localScale.z + 70f
             );
-            Instantiate(other.transform, new Vector3(25, 30, -37), Quaternion.identity);
+            Instantiate(other.transform, new Vector3(12.35f, 1.370001f, -50f), Quaternion.identity);
             Destroy(other.transform.gameObject);
         }
         else if (other.transform.gameObject.tag == "pitchDown" && this.pitch > 0.1f && this.not_empty)
@@ -109,37 +121,56 @@ public class Box1 : MonoBehaviour
                  this.transform.localScale.y,
                  this.transform.localScale.z - 70f
             );
-            Instantiate(other.transform, new Vector3(25, 30, -37), Quaternion.identity);
+            Instantiate(other.transform, new Vector3(11.96f, 1.133264f, -48.21f), Quaternion.identity);
             Destroy(other.transform.gameObject);
         }
         else if (other.transform.gameObject.tag == "volUp")
         {
-            foreach (AudioSource audioSource in this.audioSourcesList)
+            if (this.volume < 4 && this.audioSourcesList.Count > 0)
             {
-                audioSource.volume += 0.5f;
+                foreach (AudioSource audioSource in this.audioSourcesList)
+                {
+                    audioSource.volume += 0.5f;
+                }
+                foreach (GameObject musicObject in this.musicObjectList)
+                {
+                    musicObject.transform.GetComponent<Renderer>().material = this.volList[this.volume + 1];
+                }
+                
             }
-            if (this.audioSourcesList.Count > 0)
-            {
-                this.volume = this.audioSourcesList[0].volume;
-            }
-            this.hologram.color = new Vector4(
-                this.hologram.color.r + 1f, 
-                this.hologram.color.g, 
-                this.hologram.color.b, 
-                this.hologram.color.a
-            );
             // this.transform.localScale.Set(
             //     this.transform.localScale.x,
             //      this.transform.localScale.y,
             //      this.transform.localScale.z - 50f
             // );
-            Instantiate(other.transform, new Vector3(25, 30, -37), Quaternion.identity);
+            Instantiate(other.transform, new Vector3(8.17905f, 1.370001f, -50.7244f), Quaternion.identity);
             Destroy(other.transform.gameObject);
         }
         else if (other.transform.gameObject.tag == "volDown")
         {
-            Instantiate(other.transform, new Vector3(25, 30, -37), Quaternion.identity);
+            if (this.volume > 0 && this.audioSourcesList.Count > 0)
+            {
+                foreach (AudioSource audioSource in this.audioSourcesList)
+                {
+                    audioSource.volume -= 0.5f;
+                }
+                foreach (GameObject musicObject in this.musicObjectList)
+                {
+                    musicObject.transform.GetComponent<Renderer>().material = this.volList[this.volume - 1];
+                }
+
+            }
+            Instantiate(other.transform, new Vector3(7.645755f, 1.370001f, -49.3344f), Quaternion.identity);
             Destroy(other.transform.gameObject);
         }
+    }
+
+    private void createVolList()
+    {
+        this.volList.Add(this.vol1);
+        this.volList.Add(this.vol2);
+        this.volList.Add(this.vol3);
+        this.volList.Add(this.vol4);
+        this.volList.Add(this.vol5);
     }
 }
