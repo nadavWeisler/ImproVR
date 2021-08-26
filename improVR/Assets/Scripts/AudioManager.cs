@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine;  
 
 public class AudioManager : MonoBehaviour
 {
@@ -57,8 +57,10 @@ public class AudioManager : MonoBehaviour
     private GameObject needleStart;
     [SerializeField]
     private GameObject box;
+    [SerializeField]
+    private GameObject playerStartPostion;
 
-   
+
 
     // Start is called before the first frame update
     void Start()
@@ -148,6 +150,11 @@ public class AudioManager : MonoBehaviour
     public void changeTempo()
     {
         this.speed = 1.25f;
+    }
+
+    public void returnPlayerToStumps()
+    {
+        this.transform.position = this.playerStartPostion.transform.position;
     }
     
 }
