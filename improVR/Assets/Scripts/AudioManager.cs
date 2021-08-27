@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;  
+using UnityEngine;
 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : MonoBehaviour
+{
     private float speed;
     private bool isPlaying;
     private Vector3 needlePos;
@@ -19,6 +20,8 @@ public class AudioManager : MonoBehaviour {
     {
         this.speed = 1.25f;
         this.needlePos = this.needleStart.transform.position;
+        this.isPlaying = false;
+        this.needle.SetActive(false);
     }
     // Update is called once per frame
     void Update()
@@ -32,16 +35,16 @@ public class AudioManager : MonoBehaviour {
             );
         }
     }
-         
+
     private void muteEnvironment(bool isMute)
     {
         GameObject[] musicObjects = GameObject.FindGameObjectsWithTag("music");
-        foreach(GameObject musicObject in musicObjects)
+        foreach (GameObject musicObject in musicObjects)
         {
             musicObject.transform.GetComponent<AudioSource>().mute = isMute;
         }
         musicObjects = GameObject.FindGameObjectsWithTag("hologram");
-        foreach(GameObject musicObject in musicObjects)
+        foreach (GameObject musicObject in musicObjects)
         {
             musicObject.transform.GetComponent<AudioSource>().mute = !isMute;
         }
@@ -51,17 +54,19 @@ public class AudioManager : MonoBehaviour {
     {
         this.isPlaying = true;
         this.muteEnvironment(true);
+        this.needle.SetActive(true);
     }
 
     public void stop()
     {
         this.isPlaying = false;
         this.muteEnvironment(false);
+        this.needle.SetActive(false);
     }
-    
+
     public void returnPlayerToStumps()
     {
         this.transform.position = this.playerStartPostion.transform.position;
     }
-    
+
 }

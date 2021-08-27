@@ -46,6 +46,14 @@ public class Stump : MonoBehaviour
         }
     }
 
+    void createNewObject(Transform parent, Vector3 position, Quaternion rotation)
+    {
+        var newObj = Instantiate(parent, position, rotation);
+        Rigidbody newRig = newObj.transform.GetComponent<Rigidbody>();
+        newRig.useGravity = true;
+        newRig.isKinematic = false;
+    }
+
     //On trigger stump
     private void OnTriggerEnter(Collider other)
     {
@@ -55,10 +63,7 @@ public class Stump : MonoBehaviour
             this.musicObjectList.Add(other.transform.gameObject);
             this.notEmpty = true;
             this.audioSourcesList.Add(other.transform.GetComponent<AudioSource>());
-            var newObj = Instantiate(other.transform, new Vector3(Random.Range(-200f, 20f), 20, Random.Range(-200f, 20f)), Quaternion.identity);
-            Rigidbody newRig = newObj.transform.GetComponent<Rigidbody>();
-            newRig.useGravity = true;
-            newRig.isKinematic = false;
+            this.createNewObject(other.transform, new Vector3(Random.Range(-200f, 20f), 20, Random.Range(-200f, 20f)), Quaternion.identity);
             other.transform.GetComponent<AudioSource>().loop = false;
             other.transform.GetComponent<AudioSource>().spatialBlend = 0f;
             Rigidbody rigidbody = other.transform.GetComponent<Rigidbody>();
@@ -79,7 +84,7 @@ public class Stump : MonoBehaviour
         }
         else if (other.transform.gameObject.tag == "delete")
         {
-            if(this.notEmpty)
+            if (this.notEmpty)
             {
                 this.audioSourcesList = new List<AudioSource>();
                 foreach (GameObject musicObject in this.musicObjectList)
@@ -89,15 +94,12 @@ public class Stump : MonoBehaviour
                 this.musicObjectList = new List<GameObject>();
                 this.notEmpty = false;
             }
-            var newObj = Instantiate(other.transform, new Vector3(10.4f, 2.1f, -49f), Quaternion.identity);
-            Rigidbody newRig = newObj.transform.GetComponent<Rigidbody>();
-            newRig.useGravity = true;
-            newRig.isKinematic = false;
+            this.createNewObject(other.transform, new Vector3(10.4f, 2.1f, -49f), Quaternion.identity);
             Destroy(other.transform.gameObject);
         }
         else if (other.transform.gameObject.tag == "pitchUp")
         {
-            if(this.currentPitch < 5f && this.notEmpty)
+            if (this.currentPitch < 5f && this.notEmpty)
             {
                 foreach (AudioSource audioSource in this.audioSourcesList)
                 {
@@ -113,15 +115,12 @@ public class Stump : MonoBehaviour
                     this.transform.localScale.z + 70f
                 );
             }
-            var newObj = Instantiate(other.transform, new Vector3(13f, 1.5f, -50f), Quaternion.identity);
-            Rigidbody newRig = newObj.transform.GetComponent<Rigidbody>();
-            newRig.useGravity = true;
-            newRig.isKinematic = false;
+            this.createNewObject(other.transform, new Vector3(13f, 1.5f, -50f), Quaternion.identity);
             Destroy(other.transform.gameObject);
         }
         else if (other.transform.gameObject.tag == "pitchDown")
         {
-            if(this.currentPitch > 0.1f && this.notEmpty)
+            if (this.currentPitch > 0.1f && this.notEmpty)
             {
                 foreach (AudioSource audioSource in this.audioSourcesList)
                 {
@@ -137,10 +136,7 @@ public class Stump : MonoBehaviour
                     this.transform.localScale.z - 70f
                 );
             }
-            var newObj = Instantiate(other.transform, new Vector3(15f, 1.75f, -49f), Quaternion.identity);
-            Rigidbody newRig = newObj.transform.GetComponent<Rigidbody>();
-            newRig.useGravity = true;
-            newRig.isKinematic = false;
+            this.createNewObject(other.transform, new Vector3(15f, 1.75f, -49f), Quaternion.identity);
             Destroy(other.transform.gameObject);
         }
         else if (other.transform.gameObject.tag == "volUp")
@@ -155,12 +151,9 @@ public class Stump : MonoBehaviour
                 {
                     musicObject.transform.GetComponent<Renderer>().material = this.volList[this.currentVolume + 1];
                 }
-                
+
             }
-            var newObj = Instantiate(other.transform, new Vector3(7.3f, 1.5f, -50f), Quaternion.identity);
-            Rigidbody newRig = newObj.transform.GetComponent<Rigidbody>();
-            newRig.useGravity = true;
-            newRig.isKinematic = false;
+            this.createNewObject(other.transform, new Vector3(7.3f, 1.5f, -50f), Quaternion.identity);
             Destroy(other.transform.gameObject);
         }
         else if (other.transform.gameObject.tag == "volDown")
@@ -176,10 +169,7 @@ public class Stump : MonoBehaviour
                     musicObject.transform.GetComponent<Renderer>().material = this.volList[this.currentVolume - 1];
                 }
             }
-            var newObj = Instantiate(other.transform, new Vector3(4f, 1.5f, -49f), Quaternion.identity);
-            Rigidbody newRig = newObj.transform.GetComponent<Rigidbody>();
-            newRig.useGravity = true;
-            newRig.isKinematic = false;
+            this.createNewObject(other.transform, new Vector3(4f, 1.5f, -49f), Quaternion.identity);
             Destroy(other.transform.gameObject);
         }
     }
