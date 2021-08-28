@@ -69,4 +69,18 @@ public class AudioManager : MonoBehaviour
         this.transform.position = this.playerStartPostion.transform.position;
     }
 
+    public void upSpeed() {
+        if(this.speed < 3f)
+        {
+            this.speed += 0.25f;
+        }
+    }
+
+    public void downSpeed() {
+        if(this.speed > 0.25f) 
+        {
+            this.speed -= 0.25f;
+        }
+    }
+
 }
